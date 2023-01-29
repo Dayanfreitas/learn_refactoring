@@ -14,8 +14,7 @@ function statement(invoice, plays) {
                   minimumFractionDigits: 2 }).format
   
   for(let perf of invoice.performances) {
-    const play = plays[perf.playID];
-    
+    const play = playFor(perf);
     let thisAmount = amountFor(perf, play);
 
 
@@ -55,8 +54,11 @@ function statement(invoice, plays) {
     return result;
   }
 
+  //(Replace Temp with Query)(207)
+  function playFor(aPerformance){
+    return plays[aPerformance.playID];
+  }
 }
-  
 
 async function init() {
   const plays = await readFile('./plays.json')
