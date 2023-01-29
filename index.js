@@ -26,9 +26,6 @@ let invoice = [
 
 
 function statement(invoice, plays) {
-  console.log(invoice)
-  console.log(plays)
-
 
   let totalAmount  = 0;
   let volumeCredits = 0;
@@ -65,7 +62,7 @@ function statement(invoice, plays) {
     result += `${play.name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
     totalAmount += thisAmount;
   }
-  
+
   result += `Amount owed is ${format(totalAmount/100)}\n`;
   result += `Ypu earned ${volumeCredits} credits\n`;
   return result
