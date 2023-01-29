@@ -1,32 +1,11 @@
-let plays = {
-  "hamlet": { "name" :  "Hamlet", "type": "tragedy"},
-  "as-like": { "name" :  "As You Like It", "type": "comedy"},
-  "othello":{ "name" :  "Othello", "type": "tragedy"}
+const fs = require('fs')
+
+async function readFile (name) {
+  const data = await fs.readFileSync(name, 'utf-8')
+  return JSON.parse(data)
 }
 
-let invoice = [
-  {
-    "customer": "BigCo",
-    "performances": [
-      {
-        "playID": "hamlet",
-        "audience": 55
-      },
-      {
-        "playID": "as-like",
-        "audience": 35
-      },
-      {
-        "playID": "othello",
-        "audience": 40
-      }
-    ]
-  }
-]
-
-
 function statement(invoice, plays) {
-
   let totalAmount  = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
@@ -68,7 +47,14 @@ function statement(invoice, plays) {
   return result
 
 }
+  
 
-console.log(
-  statement(invoice[0], plays)
-  )
+async function init() {
+  const plays = await readFile('./plays.json')
+  const invoices =  await readFile('./invoices.json')
+
+  console.log(statement(invoices[0], plays))
+}
+
+init()
+
