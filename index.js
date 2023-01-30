@@ -14,9 +14,8 @@ function statement(invoice, plays) {
                   minimumFractionDigits: 2 }).format
   
   for(let perf of invoice.performances) {
-    volumeCredits += Math.max(perf.audience - 30, 0);
-    if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
-
+    volumeCredits += volumeCreditsFor(perf)
+    
     result += `${playFor(perf).name}: ${format(amountFor(perf)/100)} (${perf.audience} seats)\n`;
     totalAmount += amountFor(perf);
   }
@@ -53,6 +52,13 @@ function statement(invoice, plays) {
   //(Replace Temp with Query)(207)
   function playFor(aPerformance){
     return plays[aPerformance.playID];
+  }
+
+  function volumeCreditsFor(perf) {
+    let volumeCredits =  Math.max(perf.audience - 30, 0);
+    if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
+
+    return volumeCredits
   }
 }
 
