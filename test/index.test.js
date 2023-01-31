@@ -1,5 +1,5 @@
 
-const statement = require('./../index');
+import { statement } from './../statement.js'
 
 test('Contém no nome', () => {
   let plays = {
